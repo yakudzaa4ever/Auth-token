@@ -17,24 +17,18 @@ class CommentController extends Controller
             'message' => 'Barcha izohlar muvaffaqiyatli olindi'
         ]);
     }
-
     public function store(Request $request)
     {
-        $request->validate([
-            'post_id' => 'required|exists:posts,id',
-            'content' => 'required|string',
-        ]);
-
         $comment = Comment::create([
             'user_id' => Auth::id(),
             'post_id' => $request->post_id,
             'content' => $request->content,
         ]);
-
+    
         return response()->json([
             'status' => 201,
             'data' => $comment,
-            'message' => 'Izoh muvaffaqiyatli qo‘shildi'
+            'message' => 'Izoh muvaffaqiyatli qoshildi!'
         ], 201);
     }
 
@@ -43,7 +37,7 @@ class CommentController extends Controller
         if ($comment->user_id !== Auth::id()) {
             return response()->json([
                 'status' => 403,
-                'message' => 'Siz faqat o‘z izohingizni o‘chira olasiz'
+                'message' => 'Siz faqat oz izohingizni ochira olasiz'
             ], 403);
         }
 
@@ -51,7 +45,7 @@ class CommentController extends Controller
 
         return response()->json([
             'status' => 200,
-            'message' => 'Izoh muvaffaqiyatli o‘chirildi'
+            'message' => 'Izoh muvaffaqiyatli ochirildi'
         ]);
     }
 }
