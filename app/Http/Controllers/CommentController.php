@@ -17,20 +17,27 @@ class CommentController extends Controller
             'message' => 'Barcha izohlar muvaffaqiyatli olindi'
         ]);
     }
+
     public function store(Request $request)
     {
+        $request->validate([
+            'post_id' => 'required|exists:posts,id',
+            'content' => 'required|string|min:3|max:500',
+        ]);
+
         $comment = Comment::create([
             'user_id' => Auth::id(),
             'post_id' => $request->post_id,
             'content' => $request->content,
         ]);
-    
+
         return response()->json([
             'status' => 201,
             'data' => $comment,
             'message' => 'Izoh muvaffaqiyatli qoshildi!'
         ], 201);
     }
+
 
     public function destroy(Comment $comment)
     {
