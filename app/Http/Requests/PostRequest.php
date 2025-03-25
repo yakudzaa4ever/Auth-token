@@ -11,6 +11,7 @@ class PostRequest extends FormRequest
         return true;
     }
 
+    
     public function rules()
     {
         return [
