@@ -19,7 +19,6 @@ class OwnerMiddleware
                 'message' => 'Siz faqat oz postingizni tahrirlashingiz yoki ochirishingiz mumkin.'
             ], 403);
         }
-
         return $next($request);
     }
 }
